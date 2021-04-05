@@ -1,0 +1,100 @@
+<app-auth-content>
+    <div class="app-title">
+        <div>
+            <h1>
+                <i class="fa fa-users"></i> Member List</h1>
+            <p>search and edit</p>
+        </div>
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item">
+                <i class="fa fa-home fa-lg"></i>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="#">Member List</a>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <!-- ส่วนหัว -->
+                <div class="tile-title-w-btn">
+                    <h3 class="title">
+                        <i class="fa fa-list"></i> Member List
+                    </h3>
+                    <!-- ค้นหา -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend" dropdown>
+                                <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle" aria-controls="dropdown-basic">
+                                    <!-- search -->
+                                    {{ searchType.value }}
+                                    <span class="caret"></span>
+                                </button>
+                                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+                                    <li *ngFor="let item of searchTypeItems" role="menuitem">
+                                        <a class="dropdown-item" (click)="searchType = item">
+                                            {{ item.value }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="search">
+
+                            <div class="input-group-append">
+                                <button (click)="onSearchItem()" class="btn btn-primary" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tile-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <!-- Head -->
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Firstname</th>
+                                    <th>Lastname </th>
+                                    <th>Position</th>
+                                    <th>Role</th>
+                                    <th>date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <!-- Body -->
+                            <tbody>
+                                <tr *ngFor="let item of items">
+                                    <td>{{ item.email }}</td>
+                                    <td>{{ item.firstname }}</td>
+                                    <td>{{ item.lastname }}</td>
+                                    <td>{{ item.position }}</td>
+                                    <td>{{ getRoleName(item.role) }}</td>
+                                    <td>{{ item.updated | date : 'dd-MM-yyyy' }}</td>
+                                    <td class="text-right">
+                                        <i (click)="onUpdateMember(item)" class="fa fa-edit cur"></i>
+                                        <span> | </span>
+                                        <i (click)="onDeleteMember(item)" class="fa fa-trash cur"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <!-- Foot -->
+                            <tfoot>
+                                <tr>
+                                    <th colspan="7">
+                                        Total number of members: {{ items.length }} people
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+
+                        <!-- <pagination previousText="หน้าก่อนหน้า" nextText="หน้าถัดไป" [totalItems]="items.length"></pagination> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</app-auth-content>
